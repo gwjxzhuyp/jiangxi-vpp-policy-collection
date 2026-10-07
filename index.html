@@ -1,479 +1,159 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>江西省虚拟电厂政策集合</title>
-  <style>
-    :root {
-      --bg: #f4f7fb;
-      --card: #ffffff;
-      --primary: #1d4ed8;
-      --primary-soft: #e8f0ff;
-      --text: #1f2937;
-      --muted: #667085;
-      --border: #e5e7eb;
-      --success: #0f766e;
-      --warning: #b45309;
-      --shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
-      color: var(--text);
-    }
-
-    .container {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 32px 0 60px;
-    }
-
-    .header {
-      background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%);
-      color: #fff;
-      border-radius: 20px;
-      padding: 28px 28px 22px;
-      box-shadow: var(--shadow);
-      margin-bottom: 22px;
-    }
-
-    .tag {
-      display: inline-block;
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.24);
-      border-radius: 999px;
-      font-size: 12px;
-      padding: 6px 10px;
-      letter-spacing: 1px;
-    }
-
-    h1 {
-      margin: 14px 0 10px;
-      font-size: clamp(28px, 3vw, 42px);
-      line-height: 1.2;
-    }
-
-    .subhead {
-      margin: 0;
-      color: rgba(255,255,255,0.85);
-      font-size: 15px;
-      line-height: 1.8;
-    }
-
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      justify-content: space-between;
-      margin: 18px 0 22px;
-    }
-
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .filter-btn {
-      border: 1px solid var(--border);
-      background: #fff;
-      color: var(--text);
-      border-radius: 999px;
-      padding: 8px 14px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: all 0.2s ease;
-    }
-
-    .filter-btn.active {
-      background: var(--primary-soft);
-      color: var(--primary);
-      border-color: #bfd3ff;
-      font-weight: 600;
-    }
-
-    .search-wrap {
-      position: relative;
-      min-width: min(100%, 340px);
-      flex: 1;
-      max-width: 420px;
-    }
-
-    .search-wrap input {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: #fff;
-      padding: 12px 14px 12px 40px;
-      font-size: 14px;
-      outline: none;
-      box-shadow: 0 1px 2px rgba(15,23,42,0.04);
-    }
-
-    .search-wrap::before {
-      content: "🔎";
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      opacity: 0.7;
-      font-size: 15px;
-    }
-
-    .stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .stat {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px 16px;
-      box-shadow: 0 4px 12px rgba(15,23,42,0.03);
-      min-width: 150px;
-    }
-
-    .stat-label {
-      color: var(--muted);
-      font-size: 12px;
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .stat-value {
-      font-size: 22px;
-      font-weight: 700;
-    }
-
-    .policy-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 20px;
-    }
-
-    .policy-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 20px;
-      box-shadow: 0 8px 20px rgba(15,23,42,0.04);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      min-height: 250px;
-    }
-
-    .policy-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(15,23,42,0.07);
-    }
-
-    .category-badge {
-      align-self: flex-start;
-      display: inline-block;
-      padding: 5px 9px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      border: 1px solid transparent;
-    }
-
-    .category-national {
-      background: #eff6ff;
-      color: #1d4ed8;
-      border-color: #bfd3ff;
-    }
-
-    .category-jx {
-      background: #ecfdf5;
-      color: #047857;
-      border-color: #a7f3d0;
-    }
-
-    .category-local {
-      background: #fff7ed;
-      color: #c2410c;
-      border-color: #fed7aa;
-    }
-
-    .policy-card h3 {
-      margin: 0 0 12px;
-      font-size: 20px;
-      line-height: 1.5;
-    }
-
-    .meta {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.8;
-      margin-bottom: 12px;
-    }
-
-    .summary {
-      color: #374151;
-      font-size: 14px;
-      line-height: 1.8;
-      margin-bottom: 16px;
-      flex: 1;
-    }
-
-    .link-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: auto;
-    }
-
-    .link-btn {
-      display: inline-block;
-      text-decoration: none;
-      padding: 9px 12px;
-      border-radius: 10px;
-      font-size: 13px;
-      background: var(--primary-soft);
-      color: var(--primary);
-      border: 1px solid #cfe0ff;
-      font-weight: 600;
-    }
-
-    .link-btn.alt {
-      background: #fff;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .empty {
-      display: none;
-      margin-top: 18px;
-      background: #fff;
-      border: 1px dashed var(--border);
-      color: var(--muted);
-      border-radius: 12px;
-      padding: 18px;
-      text-align: center;
-    }
-
-    @media (max-width: 640px) {
-      .header {
-        padding: 22px 18px;
-      }
-
-      .toolbar {
-        align-items: stretch;
-      }
-
-      .search-wrap {
-        max-width: none;
-      }
-
-      .filter-btn {
-        flex: 1;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <header class="header">
-      <span class="tag">政策速览</span>
-      <h1>江西省虚拟电厂政策集合</h1>
-      <p class="subhead">
-        汇总江西省及国家层面关于虚拟电厂（Virtual Power Plant, VPP）的权威政策文件、通知与地方解读，便于快速检索和阅读。
-      </p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>江西省虚拟电厂政策门户</title>
+    <link rel="icon" href="/favicon.ico" />
+    <style>
+      :root{--bg:#f5f7fb;--panel:#fff;--primary:#1d4ed8;--accent:#0f766e;--muted:#5f6b7a;--line:#e7ebf2}
+      *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:"PingFang SC","Microsoft YaHei",Segoe UI,Arial;background:linear-gradient(180deg,#f9fbff 0%,var(--bg)100%);color:#172033}
+      .container{width:min(1200px,calc(100% - 32px));margin:0 auto}
+      header{background:#081130;color:#fff;padding:14px 0;position:sticky;top:0;z-index:40}
+      .top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+      .brand{display:flex;align-items:center;gap:12px;font-weight:700}
+      .brand-mark{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,#2765ff,#66a1ff)}
+      nav a{color:rgba(255,255,255,0.9);text-decoration:none;margin-left:18px}
+      .hero{background:linear-gradient(135deg,#0e1d45,#1b4ac8);padding:48px 0 36px;color:#fff}
+      .hero h1{margin:10px 0 8px;font-size:36px}
+      .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0}
+      .filters{display:flex;gap:8px}
+      .filter-btn{background:#fff;border-radius:999px;padding:8px 12px;border:1px solid var(--line);cursor:pointer}
+      .search{flex:1;max-width:420px}
+      .policy-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+      .policy-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;flex-direction:column;min-height:220px}
+      .badge{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:700;margin-bottom:10px}
+      .badge.national{background:#eaf1ff;color:var(--primary)}.badge.jx{background:#eafbf7;color:var(--accent)}.badge.local{background:#fff3e8;color:#b45309}
+      .meta{color:var(--muted);font-size:13px;margin-bottom:8px}
+      .summary{flex:1;color:#374151}
+      .link-row{display:flex;gap:10px;margin-top:12px}
+      .link-btn{padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:700}
+      .primary{background:#edf4ff;color:var(--primary);border:1px solid #cfe0ff}
+      .secondary{background:#fff;border:1px solid var(--line);color:#172033}
+      footer{color:var(--muted);text-align:center;padding:20px 0}
+      .timeline{background:var(--panel);border:1px solid var(--line);padding:18px;border-radius:12px}
+      .timeline-item{padding:12px 8px;border-left:3px solid #cfe0ff;margin-left:8px;margin-bottom:10px}
+      @media (max-width:640px){nav{display:none}}
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container top">
+        <div class="brand"><div class="brand-mark">V</div>虚拟电厂政策门户</div>
+        <nav>
+          <a href="/">首页</a>
+          <a href="/timeline.html">时间轴</a>
+          <a href="#about">政策用途</a>
+        </nav>
+      </div>
     </header>
 
-    <div class="toolbar">
-      <div class="filters">
-        <button class="filter-btn active" data-filter="all">全部</button>
-        <button class="filter-btn" data-filter="national">国家政策</button>
-        <button class="filter-btn" data-filter="jx">江西省政策</button>
-        <button class="filter-btn" data-filter="local">地方解读</button>
+    <section class="hero">
+      <div class="container">
+        <h1>江西省虚拟电厂政策集合与导航</h1>
+        <p style="max-width:760px;color:rgba(255,255,255,0.9)">本门户汇总国家与江西省以及地方关于虚拟电厂（VPP）的政策文件、解读和试点通知，支持按类别检索并查看政策详情页，适用于企业申报、项目研究与政策跟踪。</p>
+      </div>
+    </section>
+
+    <main class="container" style="padding:22px 0 60px">
+      <div class="toolbar">
+        <div class="filters">
+          <button class="filter-btn" data-filter="all">全部</button>
+          <button class="filter-btn" data-filter="national">国家政策</button>
+          <button class="filter-btn" data-filter="jx">江西省政策</button>
+          <button class="filter-btn" data-filter="local">地方解读</button>
+        </div>
+        <div class="search"><input id="searchInput" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px" placeholder="搜索关键词、文件名或年份"></div>
       </div>
 
-      <div class="search-wrap">
-        <input id="searchInput" type="text" placeholder="搜索政策标题或关键词" />
-      </div>
-    </div>
+      <section class="policy-list" id="policyList">
+        <article class="policy-card" data-category="jx" data-keywords="江西 虚拟电厂 建设运营 工作指南 2026">
+          <div class="badge jx">江西省政策</div>
+          <h3>江西省虚拟电厂建设运营工作指南</h3>
+          <div class="meta">江西省能源局 • 2026-01-12</div>
+          <div class="summary">省级核心实施文件，明确接入管理、能力校核、试点评估与安全责任。</div>
+          <div class="link-row">
+            <a class="link-btn primary" href="/policies/guide.html">查看详情页</a>
+            <a class="link-btn secondary" href="https://drc.jiangxi.gov.cn/jxsfzhggwyh/col/col4990/content/content_2010645441336242176.html" target="_blank">原文来源</a>
+          </div>
+        </article>
 
-    <div class="stats">
-      <div class="stat">
-        <span class="stat-label">政策文件</span>
-        <span class="stat-value" id="countTotal">6</span>
-      </div>
-      <div class="stat">
-        <span class="stat-label">江西省</span>
-        <span class="stat-value">2</span>
-      </div>
-      <div class="stat">
-        <span class="stat-label">国家层面</span>
-        <span class="stat-value">1</span>
-      </div>
-      <div class="stat">
-        <span class="stat-label">解读资料</span>
-        <span class="stat-value">1</span>
-      </div>
-    </div>
+        <article class="policy-card" data-category="jx" data-keywords="试点 申报 江西 虚拟电厂 2026">
+          <div class="badge jx">江西省政策</div>
+          <h3>江西省第一批虚拟电厂试点申报工作通知</h3>
+          <div class="meta">江西省能源局 • 2026-01-29</div>
+          <div class="summary">明确试点申报条件、程序、评估验收与保障措施，推动示范项目落地。</div>
+          <div class="link-row">
+            <a class="link-btn primary" href="/policies/notice.html">查看详情页</a>
+            <a class="link-btn secondary" href="https://drc.jiangxi.gov.cn/jxsfzhggwyh/col/col14590/content/content_2016802848100061184.html" target="_blank">原文来源</a>
+          </div>
+        </article>
 
-    <div id="policyList" class="policy-list">
-      <article class="policy-card" data-category="jx" data-keywords="江西 虚拟电厂 建设运营 工作指南 省能源局 2026 保障">
-        <span class="category-badge category-jx">江西省政策</span>
-        <h3>江西省虚拟电厂建设运营工作指南</h3>
-        <div class="meta">
-          <div>发布单位：江西省能源局</div>
-          <div>发布时间：2026-01-12</div>
-          <div>来源：江西省发展和改革委员会 / 省能源局</div>
-        </div>
-        <div class="summary">
-          明确虚拟电厂定义、架构、职责分工、接入管理、能力校核、试点评估与安全责任，强调“政府主导、电网企业服务、运营主体实施”的原则。
-        </div>
-        <div class="link-row">
-          <a class="link-btn" href="https://drc.jiangxi.gov.cn/jxsfzhggwyh/col/col4990/content/content_2010645441336242176.html" target="_blank" rel="noopener">查看原文</a>
-          <a class="link-btn alt" href="https://drc.jiangxi.gov.cn/jxsfzhggwyh/col/col4990/content/content_2010645441336242176.html" target="_blank" rel="noopener">政策详情</a>
-        </div>
-      </article>
+        <article class="policy-card" data-category="national" data-keywords="国家 指导意见 虚拟电厂 2025 发改能源 357">
+          <div class="badge national">国家政策</div>
+          <h3>关于加快推进虚拟电厂发展的指导意见（发改能源〔2025〕357号）</h3>
+          <div class="meta">国家发展改革委、国家能源局 • 2025-03-25</div>
+          <div class="summary">国家顶层设计，明确功能定位、市场准入与发展目标，为地方提供顶层依据。</div>
+          <div class="link-row">
+            <a class="link-btn primary" href="/policies/ndrc.html">查看详情页</a>
+            <a class="link-btn secondary" href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202504/t20250411_1397162.html" target="_blank">原文来源</a>
+          </div>
+        </article>
 
-      <article class="policy-card" data-category="jx" data-keywords="江西 第一批 试点 申报 虚拟电厂 通知">
-        <span class="category-badge category-jx">江西省政策</span>
-        <h3>江西省第一批虚拟电厂试点申报工作通知</h3>
-        <div class="meta">
-          <div>发布单位：江西省能源局</div>
-          <div>发布时间：2026-01-29</div>
-          <div>来源：江西省发展和改革委员会</div>
-        </div>
-        <div class="summary">
-          明确全省第一批虚拟电厂试点的申报条件、程序、评估、公示和服务保障，推动地方政策落地，形成示范。
-        </div>
-        <div class="link-row">
-          <a class="link-btn" href="https://drc.jiangxi.gov.cn/jxsfzhggwyh/col/col14590/content/content_2016802848100061184.html" target="_blank" rel="noopener">查看原文</a>
-          <a class="link-btn alt" href="https://drc.jiangxi.gov.cn/jxsfzhggwyh/col/col14590/content/content_2016802848100061184.html" target="_blank" rel="noopener">申报通知</a>
-        </div>
-      </article>
+        <article class="policy-card" data-category="national" data-keywords="政务公开 指导意见 虚拟电厂 2025">
+          <div class="badge national">国家政策</div>
+          <h3>关于加快推进虚拟电厂发展的指导意见（公开页）</h3>
+          <div class="meta">国家发展改革委（政务公开） • 2025</div>
+          <div class="summary">政务公开页，便于核验文件编号及背景说明。</div>
+          <div class="link-row">
+            <a class="link-btn primary" href="/policies/ndrc-public.html">查看详情页</a>
+            <a class="link-btn secondary" href="https://zfxxgk.ndrc.gov.cn/web/iteminfo.jsp?id=20496" target="_blank">原文来源</a>
+          </div>
+        </article>
 
-      <article class="policy-card" data-category="national" data-keywords="国家 虚拟电厂 指导意见 2025 发改能源 357号">
-        <span class="category-badge category-national">国家政策</span>
-        <h3>关于加快推进虚拟电厂发展的指导意见（发改能源〔2025〕357号）</h3>
-        <div class="meta">
-          <div>发布单位：国家发展改革委、国家能源局</div>
-          <div>发布时间：2025-03-25</div>
-          <div>来源：国家发展改革委 / 中国政府网</div>
-        </div>
-        <div class="summary">
-          国家层面最高指导文件，明确虚拟电厂的功能定位、建设目标、市场准入、安全要求及发展任务，是江西政策的顶层依据。
-        </div>
-        <div class="link-row">
-          <a class="link-btn" href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202504/t20250411_1397162.html" target="_blank" rel="noopener">国家发改委</a>
-          <a class="link-btn alt" href="https://www.gov.cn/zhengce/zhengceku/202504/content_7018244.htm" target="_blank" rel="noopener">中国政府网</a>
-        </div>
-      </article>
+        <article class="policy-card" data-category="local" data-keywords="赣县 一图读懂 虚拟电厂 2026">
+          <div class="badge local">地方解读</div>
+          <h3>一图读懂 | 虚拟电厂建设运营工作指南</h3>
+          <div class="meta">赣县区政府 • 2026</div>
+          <div class="summary">图文并茂的地方解读，便于快速掌握实施要点与职责分配。</div>
+          <div class="link-row">
+            <a class="link-btn primary" href="/policies/ganxian.html">查看详情页</a>
+            <a class="link-btn secondary" href="https://www.ganxian.gov.cn/gxqxxgk/fgwzcjd/202601/e1807c8e74ee447e9e174df589bc03b3.shtml" target="_blank">原文来源</a>
+          </div>
+        </article>
 
-      <article class="policy-card" data-category="national" data-keywords="政务公开 国家发改委 虚拟电厂 指导意见 审批">
-        <span class="category-badge category-national">国家政策</span>
-        <h3>关于加快推进虚拟电厂发展的指导意见（政府信息公开）</h3>
-        <div class="meta">
-          <div>发布机构：国家发展改革委</div>
-          <div>发布时间：2025</div>
-          <div>来源：国家发展改革委政务公开</div>
-        </div>
-        <div class="summary">
-          对指导意见的正式公开页，便于查询文件正文、文件编号和政策背景，并用于政府信息公开核验。
-        </div>
-        <div class="link-row">
-          <a class="link-btn" href="https://zfxxgk.ndrc.gov.cn/web/iteminfo.jsp?id=20496" target="_blank" rel="noopener">查看公开页</a>
-          <a class="link-btn alt" href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202504/t20250411_1397162.html" target="_blank" rel="noopener">对照原文</a>
-        </div>
-      </article>
+        <article class="policy-card" data-category="local" data-keywords="政策 导读 江西 虚拟电厂 概览">
+          <div class="badge local">地方解读</div>
+          <h3>江西省虚拟电厂政策导读（概览）</h3>
+          <div class="meta">政策汇总 • 说明</div>
+          <div class="summary">结合国家与省级文件梳理政策内核、申报要点与实施路径，适合入门与申报准备。</div>
+          <div class="link-row">
+            <a class="link-btn primary" href="/policies/overview.html">查看详情页</a>
+            <a class="link-btn secondary" href="#about">用途说明</a>
+          </div>
+        </article>
+      </section>
 
-      <article class="policy-card" data-category="local" data-keywords="赣县区 一图读懂 虚拟电厂 工作指南 政策解读">
-        <span class="category-badge category-local">地方解读</span>
-        <h3>一图读懂 | 江西省虚拟电厂建设运营工作指南</h3>
-        <div class="meta">
-          <div>发布单位：赣县区政府/信息公开</div>
-          <div>发布时间：2026</div>
-          <div>来源：地方政府信息公开平台</div>
-        </div>
-        <div class="summary">
-          以图文形式介绍政策背景、重点要求、建设目标及各环节职责，适合快速理解地方政策落地方式和实施路径。
-        </div>
-        <div class="link-row">
-          <a class="link-btn" href="https://www.ganxian.gov.cn/gxqxxgk/fgwzcjd/202601/e1807c8e74ee447e9e174df589bc03b3.shtml" target="_blank" rel="noopener">查看解读</a>
-          <a class="link-btn alt" href="https://www.ganxian.gov.cn/gxqxxgk/fgwzcjd/202601/e1807c8e74ee447e9e174df589bc03b3.shtml" target="_blank" rel="noopener">图解页</a>
-        </div>
-      </article>
+      <section id="about" style="margin-top:28px;background:var(--panel);padding:16px;border-radius:12px;border:1px solid var(--line)">
+        <h2 style="margin:0 0 8px">政策用途与阅读建议</h2>
+        <p style="margin:0;color:var(--muted);line-height:1.8">若用于企业申报、投资评估或研究，建议先阅读国家指导意见与省级工作指南，然后对照试点通知与地方解读以准备申报材料和技术方案。</p>
+      </section>
 
-      <article class="policy-card" data-category="local" data-keywords="江西虚拟电厂 政策解读 发展 研究">
-        <span class="category-badge category-local">地方解读</span>
-        <h3>江西省虚拟电厂政策导读（概览）</h3>
-        <div class="meta">
-          <div>类型：汇总/概览</div>
-          <div>用途：政策研究、项目申报参考</div>
-          <div>来源：聚合政策资料</div>
-        </div>
-        <div class="summary">
-          结合国家指导意见和江西省地方政策，梳理虚拟电厂的定义、建设目标、试点推进、运维管理和市场价值，便于快速建立认知框架。
-        </div>
-        <div class="link-row">
-          <a class="link-btn" href="javascript:void(0)">政务参考</a>
-          <a class="link-btn alt" href="javascript:void(0)">政策概览</a>
-        </div>
-      </article>
-    </div>
+    </main>
 
-    <div id="emptyState" class="empty">
-      未找到符合条件的政策文件，请尝试更换关键词或筛选类型。
-    </div>
-  </div>
+    <footer>© 江西省虚拟电厂政策集合 • 仅供信息整理与参考</footer>
 
-  <script>
-    const searchInput = document.getElementById('searchInput');
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const cards = [...document.querySelectorAll('.policy-card')];
-    const emptyState = document.getElementById('emptyState');
-    const countTotal = document.getElementById('countTotal');
-    let activeFilter = 'all';
-
-    function applyFilter() {
-      const keyword = searchInput.value.trim().toLowerCase();
-      let visibleCount = 0;
-
-      cards.forEach(card => {
-        const category = card.dataset.category;
-        const text = (card.textContent + ' ' + card.dataset.keywords).toLowerCase();
-
-        const matchCategory = activeFilter === 'all' || category === activeFilter;
-        const matchKeyword = !keyword || text.includes(keyword);
-
-        const visible = matchCategory && matchKeyword;
-        card.style.display = visible ? 'flex' : 'none';
-
-        if (visible) visibleCount += 1;
-      });
-
-      countTotal.textContent = String(visibleCount);
-      emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
-    }
-
-    filterButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-        activeFilter = button.dataset.filter;
-        applyFilter();
-      });
-    });
-
-    searchInput.addEventListener('input', applyFilter);
-
-    applyFilter();
-  </script>
-</body>
+    <script>
+      const filters = document.querySelectorAll('.filter-btn');
+      const cards = [...document.querySelectorAll('.policy-card')];
+      const search = document.getElementById('searchInput');
+      filters.forEach(btn=>btn.addEventListener('click',()=>{filters.forEach(b=>b.classList.remove('active'));btn.classList.add('active');applyFilter(btn.dataset.filter);}));
+      function applyFilter(filter='all'){
+        const kw = (search.value||'').trim().toLowerCase();
+        let count=0;cards.forEach(c=>{const cat=c.dataset.category;const text=(c.textContent+' '+c.dataset.keywords).toLowerCase();const match=(filter==='all'||filter===cat)&&(!kw||text.includes(kw));c.style.display=match?'flex':'none';if(match)count++;});
+      }
+      search.addEventListener('input',()=>applyFilter(document.querySelector('.filter-btn.active')?.dataset.filter||'all'));
+      applyFilter();
+    </script>
+  </body>
 </html>
