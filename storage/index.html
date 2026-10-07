@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>独立储能政策 - 按省浏览</title>
+  <style>body{font-family:Inter, "PingFang SC", "Microsoft YaHei", Arial;background:#f5f7fb;margin:0;color:#172033} .wrap{max-width:1100px;margin:28px auto;padding:20px} a{color:#1d4ed8} .prov{background:#fff;border:1px solid #e7ebf2;border-radius:10px;padding:12px;margin-top:12px} .prov h3{margin:0 0 8px} .policy{padding:8px 0;border-top:1px dashed #eef2ff} .jiangxi{border:2px solid #e6f7ff;background:#f6feff;padding:12px;border-radius:10px}</style>
+</head>
+<body>
+  <div class="wrap">
+    <a href="/">← 返回索引</a>
+    <header>
+      <h1 style="margin:8px 0">独立储能政策（按省）</h1>
+    </header>
+    <p>页面按省列出已收录的独立储能类政策；江西政策单列在上方（若有）。</p>
+
+    <section id="jiangxi" class="jiangxi">
+      <h3>江西（单列）</h3>
+      <div id="jx-list">加载中…</div>
+    </section>
+
+    <section id="others">
+      <h2 style="margin-top:18px">其他省份</h2>
+      <div id="prov-list">加载中…</div>
+    </section>
+  </div>
+
+<script>
+async function render(){
+  const res = await fetch('/policies.json');
+  const policies = await res.json();
+  const stores = policies.filter(p=>p.type==='storage');
+  const jx = stores.filter(p=>p.province==='jiangxi');
+  const others = stores.filter(p=>p.province!=='jiangxi');
+
+  const jxList = document.getElementById('jx-list');
+  if(jx.length===0) jxList.innerHTML='<div class="prov">暂无江西独立储能政策条目</div>';
+  else jxList.innerHTML = jx.map(p=>`<div class="prov"><h4>${p.title}</h4><div class="meta">${p.source} • ${p.date}</div><div class="policy">${p.summary}<div style="margin-top:8px"><a href='${p.detail}'>详情页</a> · <a href='${p.url}' target='_blank'>原文</a></div></div></div>`).join('');
+
+  const grouped = {};
+  others.forEach(p=>{grouped[p.provinceName]=grouped[p.provinceName]||[];grouped[p.provinceName].push(p)});
+  const provList = document.getElementById('prov-list');
+  provList.innerHTML = Object.keys(grouped).sort().map(prov=>{
+    const items = grouped[prov].map(p=>`<div class="policy"><strong>${p.title}</strong><div style="color:#6b7280">${p.source} • ${p.date}</div><div style="margin-top:6px">${p.summary}<div style="margin-top:6px"><a href='${p.detail}'>详情页</a> · <a href='${p.url}' target='_blank'>原文</a></div></div></div>`).join('');
+    return `<div class="prov"><h3>${prov}（${grouped[prov].length}）</h3>${items}</div>`;
+  }).join('');
+}
+render();
+</script>
+</body>
+</html>

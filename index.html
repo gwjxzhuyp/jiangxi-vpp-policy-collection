@@ -1,187 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>虚拟电厂与独立储能政策门户（多省）</title>
-    <link rel="stylesheet" href="/styles.css" />
-    <style>
-      :root{--bg:#f5f7fb;--panel:#fff;--primary:#1d4ed8;--muted:#5f6b7a;--line:#e7ebf2}
-      *{box-sizing:border-box}body{margin:0;font-family:"PingFang SC","Microsoft YaHei",Segoe UI,Arial;background:linear-gradient(180deg,#f9fbff 0%,var(--bg)100%);color:#172033}
-      .container{width:min(1200px,calc(100% - 32px));margin:0 auto;padding-bottom:60px}
-      header{background:#081130;color:#fff;padding:14px 0;position:sticky;top:0;z-index:40}
-      .top{display:flex;align-items:center;justify-content:space-between;gap:16px}
-      .brand{display:flex;align-items:center;gap:12px;font-weight:700}
-      nav a{color:rgba(255,255,255,0.9);text-decoration:none;margin-left:18px}
-      .hero{background:linear-gradient(135deg,#0e1d45,#1b4ac8);padding:36px 0 18px;color:#fff}
-      .hero h1{margin:10px 0 8px;font-size:28px}
-      .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0}
-      .filters{display:flex;gap:8px}
-      .filter-btn{background:#fff;border-radius:999px;padding:8px 12px;border:1px solid var(--line);cursor:pointer}
-      .filter-btn.active{background:#edf4ff;color:var(--primary);font-weight:700}
-      .search{flex:1;max-width:560px}
-      .policy-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
-      .policy-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;flex-direction:column;min-height:200px}
-      .badge{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:700;margin-bottom:10px}
-      .badge.national{background:#eaf1ff;color:var(--primary)}
-      .badge.prov{background:#eafbf7;color:#0f766e}
-      .badge.storage{background:#fff3e8;color:#b45309}
-      .meta{color:var(--muted);font-size:13px;margin-bottom:8px}
-      .summary{flex:1;color:#374151}
-      .link-row{display:flex;gap:10px;margin-top:12px}
-      .link-btn{padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:700}
-      .primary{background:#edf4ff;color:var(--primary);border:1px solid #cfe0ff}
-      .secondary{background:#fff;border:1px solid var(--line);color:#172033}
-      select{padding:8px;border-radius:8px;border:1px solid var(--line)}
-      footer{color:var(--muted);text-align:center;padding:20px 0;margin-top:24px}
-      /* stats */
-      .stats{display:flex;gap:18px;margin:18px 0;align-items:center}
-      .stat-card{background:var(--panel);padding:12px;border-radius:10px;border:1px solid var(--line);flex:1;min-width:180px}
-      .stat-card h4{margin:0 0 6px}
-      /* timeline */
-      .timeline{margin-top:18px;padding:18px;background:var(--panel);border:1px solid var(--line);border-radius:12px}
-      .tl-item{display:flex;gap:12px;margin-bottom:14px}
-      .tl-date{width:100px;color:var(--muted)}
-      .tl-body{flex:1}
-      @media(max-width:640px){.stats{flex-direction:column}}</style>
-  </head>
-  <body>
-    <header>
-      <div class="container top">
-        <div class="brand">虚拟电厂与独立储能政策门户</div>
-        <nav>
-          <a href="/">首页</a>
-          <a href="/timeline.html">时间轴</a>
-          <a href="#stats">统计</a>
-          <a href="#search">搜索</a>
-        </nav>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>政策索引 - 虚拟电厂与独立储能政策门户</title>
+  <style>body{font-family:Inter, "PingFang SC", "Microsoft YaHei", Arial;background:#f5f7fb;margin:0;color:#172033} .wrap{max-width:1000px;margin:36px auto;padding:20px} h1{margin:0 0 18px} .grid{display:flex;gap:18px} .card{flex:1;background:#fff;padding:20px;border-radius:12px;border:1px solid #e7ebf2;text-align:center} .card a{display:block;text-decoration:none;color:#1d4ed8;font-weight:700;margin-top:12px} </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>政策索引</h1>
+    <p>请选择政策类别：点击进入“虚拟电厂”或“独立储能”，然后按省份浏览政策清单。江西政策在列表中单列突出显示。</p>
+    <div class="grid">
+      <div class="card">
+        <h2>虚拟电厂（VPP）</h2>
+        <p>省级实施细则、入市指南、建设与运营方案等</p>
+        <a href="/vpp/">进入虚拟电厂政策</a>
       </div>
-    </header>
-
-    <section class="hero">
-      <div class="container">
-        <h1>政策集合：虚拟电厂（VPP）与独立储能（多省）</h1>
-        <p style="max-width:760px;color:rgba(255,255,255,0.9)">已收录：广东、浙江、江苏、上海、山东、四川、湖北、江西。使用下方筛选或搜索快速查找政策原文与解读。</p>
+      <div class="card">
+        <h2>独立储能（独立储能电站）</h2>
+        <p>电网侧/独立储能参与市场、容量补偿、项目管理办法等</p>
+        <a href="/storage/">进入独立储能政策</a>
       </div>
-    </section>
+    </div>
 
-    <main class="container" style="padding:22px 0 0">
-      <div class="toolbar" id="search">
-        <div style="display:flex;gap:12px;align-items:center">
-          <div class="filters">
-            <button class="filter-btn active" data-type="all">全部</button>
-            <button class="filter-btn" data-type="vpp">虚拟电厂</button>
-            <button class="filter-btn" data-type="storage">独立储能</button>
-          </div>
-          <div>
-            <select id="provinceSel">
-              <option value="all">全部省份</option>
-              <option value="guangdong">广东</option>
-              <option value="zhejiang">浙江</option>
-              <option value="jiangsu">江苏</option>
-              <option value="shanghai">上海</option>
-              <option value="shandong">山东</option>
-              <option value="sichuan">四川</option>
-              <option value="hubei">湖北</option>
-              <option value="jiangxi">江西</option>
-            </select>
-          </div>
-        </div>
-        <div class="search"><input id="searchInput" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px" placeholder="搜索标题、关键词、年份、来源"></div>
-      </div>
-
-      <section class="stats" id="stats">
-        <div class="stat-card"><h4>政策数量（按省）</h4><canvas id="provChart" width="300" height="160"></canvas></div>
-        <div class="stat-card"><h4>政策类型分布</h4><canvas id="typeChart" width="300" height="160"></canvas></div>
-      </section>
-
-      <section class="policy-list" id="policyList" aria-live="polite">
-        <!-- Cards will be loaded by JS from policies.json -->
-      </section>
-
-      <div id="emptyState" style="display:none;margin-top:18px;border:1px dashed var(--line);background:#fff;padding:16px;border-radius:10px;color:var(--muted)">未找到符合条件的政策文件</div>
-
-    </main>
-
-    <footer>© 虚拟电厂政策集合 • 数据来源：各省级发展改革委 / 能源局与行业媒体汇总</footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
-    <script>
-      // Load policies data and render cards, charts, search
-      async function loadPolicies(){
-        const res = await fetch('/policies.json');
-        const policies = await res.json();
-        const list = document.getElementById('policyList');
-        list.innerHTML = '';
-        policies.forEach(p=>{
-          const art = document.createElement('article');
-          art.className = 'policy-card';
-          art.dataset.type = p.type;
-          art.dataset.province = p.province;
-          art.dataset.keywords = (p.keywords||'') + ' ' + p.source;
-          art.dataset.date = p.date;
-          art.innerHTML = `
-            <div class="badge ${p.type==='storage'?'storage':'prov'}">${p.provinceName}</div>
-            <h3>${p.title}</h3>
-            <div class="meta">${p.source} • ${p.date}</div>
-            <div class="summary">${p.summary}</div>
-            <div class="link-row"><a class="link-btn primary" href="${p.detail || '/'}">详情页</a><a class="link-btn secondary" href="${p.url}" target="_blank">原文</a></div>
-          `;
-          list.appendChild(art);
-        });
-        window.policies = policies;
-        applyFilter();
-        renderCharts(policies);
-      }
-
-      function renderCharts(policies){
-        const provCounts = {};
-        const typeCounts = {vpp:0,storage:0};
-        policies.forEach(p=>{provCounts[p.provinceName]=(provCounts[p.provinceName]||0)+1;typeCounts[p.type]++});
-        const provLabels = Object.keys(provCounts);
-        const provData = provLabels.map(l=>provCounts[l]);
-        const ctx = document.getElementById('provChart');
-        new Chart(ctx,{type:'bar',data:{labels:provLabels,datasets:[{label:'政策数',data:provData,backgroundColor:'#4f46e5'}]},options:{plugins:{legend:{display:false}}}});
-        const ctx2 = document.getElementById('typeChart');
-        new Chart(ctx2,{type:'doughnut',data:{labels:['虚拟电厂','独立储能'],datasets:[{data:[typeCounts.vpp,typeCounts.storage],backgroundColor:['#1d4ed8','#f97316']}]},options:{plugins:{legend:{position:'bottom'}}}});
-      }
-
-      // filtering & search
-      const typeButtons = document.querySelectorAll('.filter-btn');
-      const provinceSel = document.getElementById('provinceSel');
-      const searchInput = document.getElementById('searchInput');
-      let activeType = 'all';
-
-      function applyFilter(){
-        const kw = (searchInput.value||'').trim().toLowerCase();
-        const province = provinceSel.value;
-        const cards = [...document.querySelectorAll('.policy-card')];
-        let visible = 0;
-        cards.forEach(c=>{
-          const type = c.dataset.type;
-          const prov = c.dataset.province;
-          const date = c.dataset.date || '';
-          const text = (c.textContent + ' ' + c.dataset.keywords + ' ' + date).toLowerCase();
-          const matchType = activeType==='all' || activeType===type;
-          const matchProv = province==='all' || province===prov;
-          const matchKw = !kw || text.includes(kw);
-          const show = matchType && matchProv && matchKw;
-          c.style.display = show ? 'flex' : 'none';
-          if(show) visible++;
-        });
-        document.getElementById('emptyState').style.display = visible===0 ? 'block' : 'none';
-      }
-
-      typeButtons.forEach(b=>b.addEventListener('click', ()=>{
-        typeButtons.forEach(x=>x.classList.remove('active'));
-        b.classList.add('active');
-        activeType = b.dataset.type;
-        applyFilter();
-      }));
-      provinceSel.addEventListener('change', applyFilter);
-      searchInput.addEventListener('input', applyFilter);
-
-      loadPolicies();
-    </script>
-  </body>
+    <p style="margin-top:24px;color:#6b7280">提示：数据来源见各政策条目的“原文”链接；如需把官方 PDF 存入仓库，请回复“下载原文”。</p>
+  </div>
+</body>
 </html>
