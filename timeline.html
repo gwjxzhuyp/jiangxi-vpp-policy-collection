@@ -1,22 +1,45 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>时间轴 - 江西省虚拟电厂政策</title>
-<style>body{font-family:Arial,Helvetic,Microsoft YaHei;margin:0;background:#f5f7fb;color:#172033} .container{width:min(1000px,calc(100% - 32px));margin:36px auto} h1{margin:0 0 12px} .timeline{background:#fff;border:1px solid #e7ebf2;border-radius:12px;padding:18px} .item{display:flex;gap:12px;border-left:3px solid #cfe0ff;margin:12px 0;padding-left:12px} .date{min-width:110px;color:#5f6b7a;font-weight:700} a{color:#1d4ed8;text-decoration:none}</style>
-</head>
-<body>
-<div class="container">
-  <a href="/">← 返回首页</a>
-  <h1>政策时间轴</h1>
-  <div class="timeline">
-    <div class="item"><div class="date">2025-03-25</div><div><strong>国家：关于加快推进虚拟电厂发展的指导意见（发改能源〔2025〕357号）</strong><div style="color:#5f6b7a">国家层面顶层设计，明确发展目标与市场政策。</div><div><a href="/policies/ndrc.html">查看详情</a></div></div></div>
-    <div class="item"><div class="date">2025</div><div><strong>国家：指导意见（政务公开页）</strong><div style="color:#5f6b7a">指导意见的政务公开页与文件编号。</div><div><a href="/policies/ndrc-public.html">查看详情</a></div></div></div>
-    <div class="item"><div class="date">2026-01-12</div><div><strong>江西省：虚拟电厂建设运营工作指南</strong><div style="color:#5f6b7a">江西省能源局发布的实施性工作指南。</div><div><a href="/policies/guide.html">查看详情</a></div></div></div>
-    <div class="item"><div class="date">2026-01-29</div><div><strong>江西省：第一批虚拟电厂试点申报通知</strong><div style="color:#5f6b7a">明确试点条件、申报流程与评估办法。</div><div><a href="/policies/notice.html">查看详情</a></div></div></div>
-    <div class="item"><div class="date">2026</div><div><strong>赣县区：一图读懂（工作指南图解）</strong><div style="color:#5f6b7a">地方图解帮助快速理解政策要点。</div><div><a href="/policies/ganxian.html">查看详情</a></div></div></div>
-  </div>
-</div>
-</body>
-</html>
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>政策时间轴</title>
+<style>body{font-family:Arial,Microsoft YaHei;background:#f5f7fb;color:#172033;margin:0}.wrap{width:min(1000px,calc(100% - 32px));margin:28px auto;padding-bottom:60px}header{background:#081130;color:#fff;padding:14px}a{color:#1d4ed8} .timeline{margin-top:18px} .tl-item{display:flex;gap:12px;padding:12px;background:#fff;border-radius:10px;border:1px solid #e7ebf2;margin-bottom:12px} .tl-date{width:130px;color:#6b7280;font-weight:700} .tl-card h3{margin:0 0 6px} .controls{display:flex;gap:12px;margin-top:12px;align-items:center}</style>
+</head><body>
+<header><div class="wrap"><a href="/">← 返回首页</a><h1>政策时间轴</h1></div></header>
+<main class="wrap">
+  <p>按时间显示收录的政策文件，支持按省份与类型筛选。</p>
+  <div class="controls"><select id="prov"><option value="all">全部省份</option><option value="jiangxi">江西</option><option value="guangdong">广东</option><option value="zhejiang">浙江</option><option value="jiangsu">江苏</option><option value="shanghai">上海</option><option value="shandong">山东</option><option value="sichuan">四川</option><option value="hubei">湖北</option></select>
+  <select id="typ"><option value="all">全部类型</option><option value="vpp">虚拟电厂</option><option value="storage">独立储能</option></select>
+  <input id="q" placeholder="关键字/年份搜索" style="padding:8px;border-radius:8px;border:1px solid #e7ebf2;flex:1"/></div>
+  <div class="timeline" id="timeline"></div>
+</main>
+<script>
+async function render(){
+  const res = await fetch('/policies.json');
+  const data = await res.json();
+  data.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  window.all = data;
+  draw(data);
+}
+function draw(data){
+  const container = document.getElementById('timeline');
+  container.innerHTML='';
+  data.forEach(p=>{
+    const d = document.createElement('div'); d.className='tl-item';
+    d.innerHTML = `<div class="tl-date">${p.date}</div><div class="tl-card"><h3>${p.title}</h3><div style="color:#6b7280;margin-bottom:6px">${p.provinceName} • ${p.type==='storage'?'独立储能':'虚拟电厂'} • ${p.source}</div><div style="color:#374151">${p.summary}</div><div style="margin-top:8px"><a href='${p.detail}'>详情页</a> · <a href='${p.url}' target='_blank'>原文</a></div></div>`;
+    container.appendChild(d);
+  });
+}
+function apply(){
+  const prov = document.getElementById('prov').value;
+  const typ = document.getElementById('typ').value;
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  let data = window.all.slice();
+  if(prov!=='all') data = data.filter(d=>d.province===prov);
+  if(typ!=='all') data = data.filter(d=>d.type===typ);
+  if(q) data = data.filter(d=> (d.title + ' ' + d.summary + ' ' + d.keywords + ' ' + d.source + ' ' + d.date).toLowerCase().includes(q));
+  draw(data);
+}
+document.getElementById('prov').addEventListener('change',apply);
+document.getElementById('typ').addEventListener('change',apply);
+document.getElementById('q').addEventListener('input',apply);
+render();
+</script>
+</body></html>

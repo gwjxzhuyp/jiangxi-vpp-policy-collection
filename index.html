@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>江西省虚拟电厂政策门户（扩展：多省与独立储能）</title>
+    <title>虚拟电厂与独立储能政策门户（多省）</title>
+    <link rel="stylesheet" href="/styles.css" />
     <style>
       :root{--bg:#f5f7fb;--panel:#fff;--primary:#1d4ed8;--muted:#5f6b7a;--line:#e7ebf2}
       *{box-sizing:border-box}body{margin:0;font-family:"PingFang SC","Microsoft YaHei",Segoe UI,Arial;background:linear-gradient(180deg,#f9fbff 0%,var(--bg)100%);color:#172033}
@@ -12,15 +13,15 @@
       .top{display:flex;align-items:center;justify-content:space-between;gap:16px}
       .brand{display:flex;align-items:center;gap:12px;font-weight:700}
       nav a{color:rgba(255,255,255,0.9);text-decoration:none;margin-left:18px}
-      .hero{background:linear-gradient(135deg,#0e1d45,#1b4ac8);padding:40px 0 28px;color:#fff}
-      .hero h1{margin:10px 0 8px;font-size:32px}
+      .hero{background:linear-gradient(135deg,#0e1d45,#1b4ac8);padding:36px 0 18px;color:#fff}
+      .hero h1{margin:10px 0 8px;font-size:28px}
       .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0}
       .filters{display:flex;gap:8px}
       .filter-btn{background:#fff;border-radius:999px;padding:8px 12px;border:1px solid var(--line);cursor:pointer}
       .filter-btn.active{background:#edf4ff;color:var(--primary);font-weight:700}
-      .search{flex:1;max-width:420px}
+      .search{flex:1;max-width:560px}
       .policy-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
-      .policy-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;flex-direction:column;min-height:220px}
+      .policy-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;flex-direction:column;min-height:200px}
       .badge{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:700;margin-bottom:10px}
       .badge.national{background:#eaf1ff;color:var(--primary)}
       .badge.prov{background:#eafbf7;color:#0f766e}
@@ -33,28 +34,39 @@
       .secondary{background:#fff;border:1px solid var(--line);color:#172033}
       select{padding:8px;border-radius:8px;border:1px solid var(--line)}
       footer{color:var(--muted);text-align:center;padding:20px 0;margin-top:24px}
-    </style>
+      /* stats */
+      .stats{display:flex;gap:18px;margin:18px 0;align-items:center}
+      .stat-card{background:var(--panel);padding:12px;border-radius:10px;border:1px solid var(--line);flex:1;min-width:180px}
+      .stat-card h4{margin:0 0 6px}
+      /* timeline */
+      .timeline{margin-top:18px;padding:18px;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+      .tl-item{display:flex;gap:12px;margin-bottom:14px}
+      .tl-date{width:100px;color:var(--muted)}
+      .tl-body{flex:1}
+      @media(max-width:640px){.stats{flex-direction:column}}</style>
   </head>
   <body>
     <header>
       <div class="container top">
-        <div class="brand">虚拟电厂政策门户（多省）</div>
+        <div class="brand">虚拟电厂与独立储能政策门户</div>
         <nav>
           <a href="/">首页</a>
           <a href="/timeline.html">时间轴</a>
+          <a href="#stats">统计</a>
+          <a href="#search">搜索</a>
         </nav>
       </div>
     </header>
 
     <section class="hero">
       <div class="container">
-        <h1>政策集合：虚拟电厂与独立储能（多省）</h1>
-        <p style="max-width:760px;color:rgba(255,255,255,0.9)">已扩展至：广东、浙江、江苏、上海、山东、四川、湖北。页面支持按“政策类型（虚拟电厂 / 独立储能）”和“省份”筛选。</p>
+        <h1>政策集合：虚拟电厂（VPP）与独立储能（多省）</h1>
+        <p style="max-width:760px;color:rgba(255,255,255,0.9)">已收录：广东、浙江、江苏、上海、山东、四川、湖北、江西。使用下方筛选或搜索快速查找政策原文与解读。</p>
       </div>
     </section>
 
     <main class="container" style="padding:22px 0 0">
-      <div class="toolbar">
+      <div class="toolbar" id="search">
         <div style="display:flex;gap:12px;align-items:center">
           <div class="filters">
             <button class="filter-btn active" data-type="all">全部</button>
@@ -75,176 +87,81 @@
             </select>
           </div>
         </div>
-        <div class="search"><input id="searchInput" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px" placeholder="搜索标题、关键词或年份"></div>
+        <div class="search"><input id="searchInput" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px" placeholder="搜索标题、关键词、年份、来源"></div>
       </div>
 
-      <section class="policy-list" id="policyList">
-        <!-- Jiangxi existing items kept -->
-        <article class="policy-card" data-type="vpp" data-province="jiangxi" data-keywords="江西 虚拟电厂 工作 指南 2026">
-          <div class="badge prov">江西</div>
-          <h3>江西省虚拟电厂建设运营工作指南</h3>
-          <div class="meta">江西省能源局 • 2026-01-12</div>
-          <div class="summary">省级核心实施文件，明确接入管理、能力校核、试点评估与安全责任。</div>
-          <div class="link-row">
-            <a class="link-btn primary" href="/policies/guide.html">详情页</a>
-            <a class="link-btn secondary" href="https://drc.jiangxi.gov.cn/jxsfzhggwyh/col/col4990/content/content_2010645441336242176.html" target="_blank">原文</a>
-          </div>
-        </article>
+      <section class="stats" id="stats">
+        <div class="stat-card"><h4>政策数量（按省）</h4><canvas id="provChart" width="300" height="160"></canvas></div>
+        <div class="stat-card"><h4>政策类型分布</h4><canvas id="typeChart" width="300" height="160"></canvas></div>
+      </section>
 
-        <article class="policy-card" data-type="vpp" data-province="jiangxi" data-keywords="江西 试点 申报 虚拟电厂 2026">
-          <div class="badge prov">江西</div>
-          <h3>江西省第一批虚拟电厂试点申报通知</h3>
-          <div class="meta">江西省能源局 • 2026-01-29</div>
-          <div class="summary">明确试点申报条件、程序与评估办法，为地方项目落地提供操作指引。</div>
-          <div class="link-row">
-            <a class="link-btn primary" href="/policies/notice.html">详情页</a>
-            <a class="link-btn secondary" href="https://drc.jiangxi.gov.cn/jxsfzhggwyh/col/col14590/content/content_2016802848100061184.html" target="_blank">原文</a>
-          </div>
-        </article>
-
-        <!-- New provinces: Guangdong -->
-        <article class="policy-card" data-type="vpp" data-province="guangdong" data-keywords="广东 虚拟电厂 参与 电力市场 实施 方案">
-          <div class="badge prov">广东</div>
-          <h3>广东省虚拟电厂参与电力市场交易实施方案</h3>
-          <div class="meta">广东省能源局/南方监管局 • 2024-2025</div>
-          <div class="summary">规范VPP注册、市场参与、能力测试与交易细则，明确发电类/负荷类资源参与机制。</div>
-          <div class="link-row"><a class="link-btn primary" href="/policies/guangdong-vpp.html">详情页</a><a class="link-btn secondary" href="https://news.bjx.com.cn/html/20241119/1411499.shtml" target="_blank">来源</a></div>
-        </article>
-
-        <article class="policy-card" data-type="storage" data-province="guangdong" data-keywords="广东 独立 储能 电站 能源 储能 政策">
-          <div class="badge storage">独立储能</div>
-          <h3>广东省独立储能与容量补偿政策与项目计划</h3>
-          <div class="meta">广东省发改/能源局 • 2024-2026</div>
-          <div class="summary">包含��立储能市场接入、补偿机制与2026年重点建设项目（19个独立储能站）的发布与实施方向。</div>
-          <div class="link-row"><a class="link-btn primary" href="/policies/guangdong-storage.html">详情页</a><a class="link-btn secondary" href="https://news.bjx.com.cn/html/20260507/1494564.shtml" target="_blank">来源</a></div>
-        </article>
-
-        <!-- Zhejiang -->
-        <article class="policy-card" data-type="vpp" data-province="zhejiang" data-keywords="浙江 虚拟电厂 运营 管理 细则 试行">
-          <div class="badge prov">浙江</div>
-          <h3>浙江省虚拟电厂运营管理实施细则（试行）</h3>
-          <div class="meta">浙江省发改委/能源局 • 2025</div>
-          <div class="summary">省级细则，覆盖注册、能力认证、交易、监管和技术接入，是全国较早的省级VPP细则之一。</div>
-          <div class="link-row"><a class="link-btn primary" href="/policies/zhejiang-vpp.html">详情页</a><a class="link-btn secondary" href="https://fzggw.zj.gov.cn/art/2025/6/3/art_1621018_58940873.html" target="_blank">来源</a></div>
-        </article>
-
-        <article class="policy-card" data-type="storage" data-province="zhejiang" data-keywords="浙江 独立 储能 参与 电力 市场 通知 2026">
-          <div class="badge storage">独立储能</div>
-          <h3>浙江省电网侧独立新型储能参与电力市场的通知（浙发改能源〔2026〕196号）</h3>
-          <div class="meta">浙江省发改委/能源局 • 2026-09</div>
-          <div class="summary">明确电网侧独立储能的市场准入、结算、日内/实时市场参与和容量、电价机制等。</div>
-          <div class="link-row"><a class="link-btn primary" href="/policies/zhejiang-storage.html">详情页</a><a class="link-btn secondary" href="https://fzggw.zj.gov.cn/col/col1229629046/art/2026/art_08ae12fc2d564ee78cdb7ffd7b4ddf6d.html" target="_blank">来源</a></div>
-        </article>
-
-        <!-- Jiangsu -->
-        <article class="policy-card" data-type="vpp" data-province="jiangsu" data-keywords="江苏 虚拟电厂 推进 通知 100 个 项目">
-          <div class="badge prov">江苏</div>
-          <h3>江苏省促虚拟电厂高质量发展通知（苏发改能源发〔2025〕1198号）</h3>
-          <div class="meta">江苏省发改委 • 2025-12</div>
-          <div class="summary">推动建设首批100个虚拟电厂并公示名单，明确三级管理体系与市场化目标。</div>
-          <div class="link-row"><a class="link-btn primary" href="/policies/jiangsu-vpp.html">详情页</a><a class="link-btn secondary" href="https://www.pvmeng.com/2025/12/17/52894/" target="_blank">来源</a></div>
-        </article>
-
-        <article class="policy-card" data-type="storage" data-province="jiangsu" data-keywords="江苏 独立 储能 通知 2026 政策 衔接">
-          <div class="badge storage">独立储能</div>
-          <h3>江苏省电网侧新型储能政策衔接通知（2026）</h3>
-          <div class="meta">江苏省发改委 • 2026-01</div>
-          <div class="summary">明确电网侧新型储能项目的支持性政策衔接与容量补偿、并网和市场参与过渡期安排。</div>
-          <div class="link-row"><a class="link-btn primary" href="/policies/jiangsu-storage.html">详情页</a><a class="link-btn secondary" href="https://www.pvmeng.com/2026/01/27/77749/" target="_blank">来源</a></div>
-        </article>
-
-        <!-- Shanghai -->
-        <article class="policy-card" data-type="vpp" data-province="shanghai" data-keywords="上海 用户侧 虚拟 电厂 建设 实施 方案 2025">
-          <div class="badge prov">上海</div>
-          <h3>上海市用户侧虚拟电厂建设实施方案（2025-2027）</h3>
-          <div class="meta">上海市经信委 • 2025</div>
-          <div class="summary">设定用户侧VPP目标、接入资源类型、管理平台与支持措施，推进示范与规模化。</div>
-          <div class="link-row"><a class="link-btn primary" href="/policies/shanghai-vpp.html">详情页</a><a class="link-btn secondary" href="https://www.shanghai.gov.cn/xnysj/20250624/285dc214644a4891bf722cc9d22f3f28.html" target="_blank">来源</a></div>
-        </article>
-
-        <article class="policy-card" data-type="storage" data-province="shanghai" data-keywords="上海 独立 储能 电站 政策 规划 2024 2025">
-          <div class="badge storage">独立储能</div>
-          <h3>上海市独立储能与示范行动计划（含十四五规划）</h3>
-          <div class="meta">上海市发改委/经信委 • 2023-2026</div>
-          <div class="summary">覆盖独立储能项目申报、试点、并网、示范与产业发展目标，支持网侧独立储能商业化。</div>
-          <div class="link-row"><a class="link-btn primary" href="/policies/shanghai-storage.html">详情页</a><a class="link-btn secondary" href="https://www.shanghai.gov.cn/nw12344/20220515/b0a5838d0ae944619d8559fd95b66bf1.html" target="_blank">来源</a></div>
-        </article>
-
-        <!-- Shandong -->
-        <article class="policy-card" data-type="vpp" data-province="shandong" data-keywords="山东 虚拟 电厂 方案 管理 办法">
-          <div class="badge prov">山东</div>
-          <h3>山东省虚拟电厂建设与管理办法 / 高质量发展方案</h3>
-          <div class="meta">山东省发改委/能源局 • 2025-2026</div>
-          <div class="summary">省级方案与管理办法，提出区域发展目标、市场参与和建设运营管理规范。</div>
-          <div class="link-row"><a class="link-btn primary" href="/policies/shandong-vpp.html">详情页</a><a class="link-btn secondary" href="http://nyj.shandong.gov.cn/" target="_blank">来源</a></div>
-        </article>
-
-        <article class="policy-card" data-type="storage" data-province="shandong" data-keywords="山东 新型 储能 管理 办法 2024 2026">
-          <div class="badge storage">独立储能</div>
-          <h3>山东省支持新型储能发展政策与配建/独立储能细则</h3>
-          <div class="meta">山东省能源局 • 2023-2026</div>
-          <div class="summary">包含新型储能项目管理办法、配建储能与独立储能参与市场的配套文件与补贴安排。</div>
-          <div class="link-row"><a class="link-btn primary" href="/policies/shandong-storage.html">详情页</a><a class="link-btn secondary" href="http://nyj.shandong.gov.cn/art/2023/11/13/art_100393_10301654.html" target="_blank">来源</a></div>
-        </article>
-
-        <!-- Sichuan -->
-        <article class="policy-card" data-type="vpp" data-province="sichuan" data-keywords="四川 虚拟 电厂 建设 运营 管理 实施 方案 2025">
-          <div class="badge prov">四川</div>
-          <h3>四川省虚拟电厂建设运营管理实施方案</h3>
-          <div class="meta">四川省发改委/能源局 • 2025</div>
-          <div class="summary">省级“1+N”管理体系、平台接入与调度、试点与目标，提出到2026年和2027年的调节能力指标。</div>
-          <div class="link-row"><a class="link-btn primary" href="/policies/sichuan-vpp.html">详情页</a><a class="link-btn secondary" href="https://fgw.sc.gov.cn/sfgw/tzgg/2025/7/11/b72aba04e58a45feb482c350e241b2c4.shtml" target="_blank">来源</a></div>
-        </article>
-
-        <article class="policy-card" data-type="storage" data-province="sichuan" data-keywords="四川 独立 储能 调峰 补偿 400 元 MWh 政策">
-          <div class="badge storage">独立储能</div>
-          <h3>四川省独立储能 / 调峰补偿与辅助服务细则</h3>
-          <div class="meta">国家能源局四川监管办 / 省能源局 • 2026</div>
-          <div class="summary">明确独立储能参与补偿、辅助服务和现货市场的原则，公布调峰补偿与容量补偿等标准。</div>
-          <div class="link-row"><a class="link-btn primary" href="/policies/sichuan-storage.html">详情页</a><a class="link-btn secondary" href="https://scb.nea.gov.cn/hdhy/zxzx/202604/t20260408_299292.html" target="_blank">来源</a></div>
-        </article>
-
-        <!-- Hubei -->
-        <article class="policy-card" data-type="vpp" data-province="hubei" data-keywords="湖北 虚拟 电厂 入市 服务 指南 V2.0 2025">
-          <div class="badge prov">湖北</div>
-          <h3>湖北省虚拟电厂入市服务指南（V2.0）</h3>
-          <div class="meta">国网湖北 / 湖北电力交易中心 • 2025</div>
-          <div class="summary">明确VPP市场主体定位、接入流程、资源要求和初期参与范围（负荷类先行）。</div>
-          <div class="link-row"><a class="link-btn primary" href="/policies/hubei-vpp.html">详情页</a><a class="link-btn secondary" href="https://www.pvmeng.com/2025/04/01/38713/" target="_blank">来源</a></div>
-        </article>
-
-        <article class="policy-card" data-type="storage" data-province="hubei" data-keywords="湖北 独立 储能 容量 补偿 价格 机制 2026">
-          <div class="badge storage">独立储能</div>
-          <h3>湖北省独立储能价格��制与容量补偿通知</h3>
-          <div class="meta">湖北省发改委/能源局 • 2026</div>
-          <div class="summary">建立新型储能价格机制与容量补偿（示例：165元/千瓦·年），明确市场化参与与准入考核。</div>
-          <div class="link-row"><a class="link-btn primary" href="/policies/hubei-storage.html">详情页</a><a class="link-btn secondary" href="https://fgw.hubei.gov.cn/fbjd/zc/gfwj/gf/202601/t20260104_5847650.shtml" target="_blank">来源</a></div>
-        </article>
-
+      <section class="policy-list" id="policyList" aria-live="polite">
+        <!-- Cards will be loaded by JS from policies.json -->
       </section>
 
       <div id="emptyState" style="display:none;margin-top:18px;border:1px dashed var(--line);background:#fff;padding:16px;border-radius:10px;color:var(--muted)">未找到符合条件的政策文件</div>
 
     </main>
 
-    <footer>© 虚拟电厂政策集合 • 如需下载原文PDF或更多省份，请联系维护人</footer>
+    <footer>© 虚拟电厂政策集合 • 数据来源：各省级发展改革委 / 能源局与行业媒体汇总</footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
     <script>
+      // Load policies data and render cards, charts, search
+      async function loadPolicies(){
+        const res = await fetch('/policies.json');
+        const policies = await res.json();
+        const list = document.getElementById('policyList');
+        list.innerHTML = '';
+        policies.forEach(p=>{
+          const art = document.createElement('article');
+          art.className = 'policy-card';
+          art.dataset.type = p.type;
+          art.dataset.province = p.province;
+          art.dataset.keywords = (p.keywords||'') + ' ' + p.source;
+          art.dataset.date = p.date;
+          art.innerHTML = `
+            <div class="badge ${p.type==='storage'?'storage':'prov'}">${p.provinceName}</div>
+            <h3>${p.title}</h3>
+            <div class="meta">${p.source} • ${p.date}</div>
+            <div class="summary">${p.summary}</div>
+            <div class="link-row"><a class="link-btn primary" href="${p.detail || '/'}">详情页</a><a class="link-btn secondary" href="${p.url}" target="_blank">原文</a></div>
+          `;
+          list.appendChild(art);
+        });
+        window.policies = policies;
+        applyFilter();
+        renderCharts(policies);
+      }
+
+      function renderCharts(policies){
+        const provCounts = {};
+        const typeCounts = {vpp:0,storage:0};
+        policies.forEach(p=>{provCounts[p.provinceName]=(provCounts[p.provinceName]||0)+1;typeCounts[p.type]++});
+        const provLabels = Object.keys(provCounts);
+        const provData = provLabels.map(l=>provCounts[l]);
+        const ctx = document.getElementById('provChart');
+        new Chart(ctx,{type:'bar',data:{labels:provLabels,datasets:[{label:'政策数',data:provData,backgroundColor:'#4f46e5'}]},options:{plugins:{legend:{display:false}}}});
+        const ctx2 = document.getElementById('typeChart');
+        new Chart(ctx2,{type:'doughnut',data:{labels:['虚拟电厂','独立储能'],datasets:[{data:[typeCounts.vpp,typeCounts.storage],backgroundColor:['#1d4ed8','#f97316']}]},options:{plugins:{legend:{position:'bottom'}}}});
+      }
+
+      // filtering & search
       const typeButtons = document.querySelectorAll('.filter-btn');
       const provinceSel = document.getElementById('provinceSel');
       const searchInput = document.getElementById('searchInput');
-      const cards = [...document.querySelectorAll('.policy-card')];
-      const emptyState = document.getElementById('emptyState');
       let activeType = 'all';
 
       function applyFilter(){
         const kw = (searchInput.value||'').trim().toLowerCase();
         const province = provinceSel.value;
+        const cards = [...document.querySelectorAll('.policy-card')];
         let visible = 0;
         cards.forEach(c=>{
           const type = c.dataset.type;
           const prov = c.dataset.province;
-          const text = (c.textContent + ' ' + c.dataset.keywords).toLowerCase();
+          const date = c.dataset.date || '';
+          const text = (c.textContent + ' ' + c.dataset.keywords + ' ' + date).toLowerCase();
           const matchType = activeType==='all' || activeType===type;
           const matchProv = province==='all' || province===prov;
           const matchKw = !kw || text.includes(kw);
@@ -252,7 +169,7 @@
           c.style.display = show ? 'flex' : 'none';
           if(show) visible++;
         });
-        emptyState.style.display = visible===0 ? 'block' : 'none';
+        document.getElementById('emptyState').style.display = visible===0 ? 'block' : 'none';
       }
 
       typeButtons.forEach(b=>b.addEventListener('click', ()=>{
@@ -263,7 +180,8 @@
       }));
       provinceSel.addEventListener('change', applyFilter);
       searchInput.addEventListener('input', applyFilter);
-      applyFilter();
+
+      loadPolicies();
     </script>
   </body>
 </html>
